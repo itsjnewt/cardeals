@@ -119,7 +119,7 @@ const carSingle = ({ car }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {car?.FoundCars &&
+                  {car?.FoundCars.length > 0 &&
                     car?.FoundCars.map((car) => {
                       var isLowest = LowestFound === car.Price;
                       return (
