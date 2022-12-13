@@ -4,7 +4,7 @@ const HomePage = () => {
   const [apiKey, setApiKey] = useState('XOrQSaKC0y9IFVBEMXwi32ksgLWI');
   const [search, setSearch] = useState('');
   const [maxMiles, setmaxMiles] = useState('');
-  const [carType, setCarType] = useState('');
+  const [carType, setCarType] = useState('both');
   const [data, setData] = useState([]);
   const [accordions, setAccordions] = useState([]);
 
@@ -41,6 +41,7 @@ const HomePage = () => {
           onChange={(e) => setCarType(e.target.value)}
           className='border p-2 w-[10%]'
         >
+          <option value='both'>Both</option>
           <option value='used'>Used</option>
           <option value='new'>New</option>
         </select>
@@ -58,14 +59,12 @@ const HomePage = () => {
         <button
           className='bg-blue-500 text-white p-2 rounded block m-auto mt-5 w-[50%]'
           onClick={() => {
-            var params = carType ? `&car_type=${carType}` : '';
+            var params = carType !== 'both' ? `&car_type=${carType}` : '';
             params += maxMiles ? `&miles_range=0-${maxMiles}` : '';
-            var rows = '&start=0&rows=50';
+            params += '&start=0&rows=50';
             var config = {
               method: 'get',
-              url: `https://marketcheck-prod.apigee.net/oauth/v2/search/car/active?vins=${search}${
-                params + rows
-              }`,
+              url: `https://marketcheck-prod.apigee.net/oauth/v2/search/car/active?vins=${search}${params}`,
               headers: {
                 Authorization: 'Bearer XOrQSaKC0y9IFVBEMXwi32ksgLWI',
               },
